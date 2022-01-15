@@ -22,6 +22,9 @@ contract DeCoupBase is AccessControlContract {
         // Coupon design address
         string couponDesignURL;
 
+        // id of the coupon in Coupons array
+        uint id;
+
         // The creator of the coupon.
         address generator;
 
