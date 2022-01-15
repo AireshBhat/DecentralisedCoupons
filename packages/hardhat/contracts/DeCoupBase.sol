@@ -53,6 +53,9 @@ contract DeCoupBase is AccessControlContract {
     mapping (address => bool) generators;
     mapping (address => bool) sinks;
 
+    // Owner address to coupon index mapping.
+    mapping (address => uint[]) ownerToCouponIndex;
+
     /// @dev A mapping from coupon IDs to the address that owns them. All coupons have
     ///  some valid owner address.
     mapping (uint256 => address) public couponIndexToOwner;
