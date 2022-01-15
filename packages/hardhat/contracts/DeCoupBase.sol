@@ -72,4 +72,24 @@ contract DeCoupBase is AccessControlContract {
     ///  at any time. A zero value means no approval is outstanding.
     mapping (uint256 => address) public kittyIndexToApproved;
 
+    /*** CONSTANTS ***/
+
+    /// @dev A lookup table indicating the validityTime duration.
+    uint32[14] public validityTime = [
+        uint32(1 minutes),
+        uint32(2 minutes),
+        uint32(5 minutes),
+        uint32(10 minutes),
+        uint32(30 minutes),
+        uint32(1 hours),
+        uint32(2 hours),
+        uint32(4 hours),
+        uint32(8 hours),
+        uint32(16 hours),
+        uint32(1 days),
+        uint32(2 days),
+        uint32(4 days),
+        uint32(7 days)
+    ];
+
 }
