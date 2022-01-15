@@ -7,6 +7,7 @@ contract CouponHelper is DeCoupBase {
 
     modifier isValidCoupon(Coupon memory _coupon) {
         require(_coupon.isCouponValid);
+        require((_coupons.couponValidityTime + _coupon.couponCreationTime) >= now);
         _;
     }
 
@@ -14,4 +15,10 @@ contract CouponHelper is DeCoupBase {
         require(_coupon.isCouponApproved);
         _;
     }
+
+    modifier isOwnedBy(Coupon memory _coupon) {
+        require(_coupon.owner = msg.sender);
+        _;
+    }
+
 }
