@@ -11,8 +11,11 @@ contract createCoupon is DeCoupBase {
 
     /// @dev funcion to create a Single coupon for generators
     function createCoupon(string couponDesignURL, uint id, address sink, uint64 couponValidityTime, uint64 couponCreationTime, uint8 couponType, uint8 amountRedeemable, bool isCouponValid, bool isCouponApproved) public {
+        // Only generators can create coupons
         require(generators[msg.sender]);
-        uint256 id  = coupons.push(Coupon(couponDesignURL, coupons.length() + 1, msg.sender, sink, couponValidityTime, couponCreationTime, couponType, amountRedeemable, false, false));
+        //Create a new coupon and push it to the coupons array
+        uint256 id  = coupons.push(Coupon(couponDesignURL, coupons.length(), msg.sender, sink, couponValidityTime, couponCreationTime, couponType, amountRedeemable, true, false));
+        //emit event once the coupon has been created
         event Mint(msg.sender, id);
     }
 }
