@@ -49,6 +49,10 @@ contract DeCoupBase is AccessControlContract {
     /*** STORAGE ***/
     Coupon[] coupons;
 
+    // Address of valid generators and sinks
+    address[] generators;
+    address[] sinks;
+
     /// @dev A mapping from coupon IDs to the address that owns them. All coupons have
     ///  some valid owner address.
     mapping (uint256 => address) public couponIndexToOwner;
