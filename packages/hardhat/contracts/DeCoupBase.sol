@@ -17,6 +17,7 @@ contract DeCoupBase is AccessControlContract {
     ///  ownership is assigned, including creations.
     event Transfer(address from, address to, uint256 tokenId);
 
+
     struct Coupon {
         // Coupon design address
         string couponDesignURL;
@@ -34,5 +35,31 @@ contract DeCoupBase is AccessControlContract {
 
         // Coupon Type
         uint8 couponType;
+
+        // Amount of amount left to be redeemed
+        uint8 amountRedeemable;
+
+        // Coupon Status
+        bool isCouponValid;
+
+        // Has Coupon been approved by sink
+        bool isCouponApproved;
     }
+
+    /*** STORAGE ***/
+    Coupon[] coupons;
+
+    /// @dev A mapping from coupon IDs to the address that owns them. All coupons have
+    ///  some valid owner address.
+    mapping (uint256 => address) public couponIndexToOwner;
+
+    // @dev A mapping from owner address to count of tokens that address owns.
+    //  Used internally inside balanceOf() to resolve ownership count.
+    mapping (address => uint256) ownershipCouponCount;
+
+    /// @dev A mapping from CouponIDs to an address that has been approved to call
+    ///  transferFrom(). Each Coupon can only have one approved address for transfer
+    ///  at any time. A zero value means no approval is outstanding.
+    mapping (uint256 => address) public kittyIndexToApproved;
+
 }
