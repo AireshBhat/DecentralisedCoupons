@@ -33,6 +33,9 @@ contract DeCoupBase is AccessControlContract {
         // coupon validity + couponeValidtyTime
         uint64 couponValidityTime;
 
+        // Stores the creation time of the coupon
+        uint64 couponCreationTime;
+
         // Coupon Type
         uint8 couponType;
 
