@@ -10,11 +10,12 @@ import "./DeCoupBase.sol";
 contract createCoupon is DeCoupBase {
 
     /// @dev funcion to create a Single coupon for generators
-    function createCoupon(string couponDesignURL, address sink, uint64 couponValidityTime, uint8 couponType, uint8 amountRedeemable) public {
+    function createCoupon(string couponDesignURL, address sink, uint64 couponValidityTime, uint64 couponCreationTime, uint8 couponType, uint8 amountRedeemable) public {
         require(generators[msg.sender]);
-        uint256 id  = coupons.push(Coupon(couponDesignURL, msg.sender, sink, couponValidityTime, couponType, amountRedeemable, 0, 0));
+        uint256 id  = coupons.push(Coupon(couponDesignURL, msg.sender, sink, couponValidityTime, couponCreationTime, couponType, amountRedeemable, false, false));
         couponIndexToOwner[id] = msg.sender;
         ownershipCouponCount[msg.sender] = ownershipCouponCount[msg.sender] + 1;
+        ownerToCouponIndex[msg.sender].push(id);
         event Mint(msg.sender, id);
     }
 }
