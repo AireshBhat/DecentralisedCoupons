@@ -25,6 +25,9 @@ contract DeCoupBase is AccessControlContract {
         // id of the coupon in Coupons array
         uint id;
 
+        // current owner of the coupon
+        address owner;
+
         // The creator of the coupon.
         address generator;
 
@@ -58,22 +61,6 @@ contract DeCoupBase is AccessControlContract {
     // Address of valid generators and sinks
     mapping (address => bool) generators;
     mapping (address => bool) sinks;
-
-    // Owner address to coupon index mapping.
-    mapping (address => uint[]) ownerToCouponIndex;
-
-    /// @dev A mapping from coupon IDs to the address that owns them. All coupons have
-    ///  some valid owner address.
-    mapping (uint256 => address) public couponIndexToOwner;
-
-    // @dev A mapping from owner address to count of tokens that address owns.
-    //  Used internally inside balanceOf() to resolve ownership count.
-    mapping (address => uint256) ownershipCouponCount;
-
-    /// @dev A mapping from CouponIDs to an address that has been approved to call
-    ///  transferFrom(). Each Coupon can only have one approved address for transfer
-    ///  at any time. A zero value means no approval is outstanding.
-    mapping (uint256 => address) public kittyIndexToApproved;
 
     /*** CONSTANTS ***/
 
