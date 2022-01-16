@@ -40,4 +40,11 @@ contract CouponHelper is DeCoupBase {
         require(generators[_address] == true);
         _;
     }
+
+    modifier couponTypeValidity(uint _couponId){
+        require(
+            coupons[_couponId].couponType == 0 ||
+            coupons[_couponId].couponType == 1
+        );
+    }
 }
