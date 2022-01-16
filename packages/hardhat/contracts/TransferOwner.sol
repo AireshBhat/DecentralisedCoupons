@@ -1,10 +1,10 @@
 pragma solidity >=0.8.0 <0.9.0;
 //SPDX-License-Identifier: MIT
 
-/// @title A facet of DeCoup that manages special access privileges.
-/// @author Shekhar Somani
 import "./ApproveCoupon.sol";
 
+/// @title A facet of DeCoup that manages special access privileges.
+/// @author Shekhar Somani
 contract TransferOwner is ApproveCoupon {
     function _transferToUser(uint256 _couponId, address _targetUser)
         internal

@@ -24,10 +24,10 @@ contract CreateCoupon is CouponHelper {
         coupons.push(
             Coupon(
                 couponDesignURL,
-                coupons.length,
-                msg.sender,
+                0x0000000000000000000000000000000000000000,
                 msg.sender,
                 sink,
+                coupons.length,
                 couponValidityTime,
                 couponCreationTime,
                 couponType,
