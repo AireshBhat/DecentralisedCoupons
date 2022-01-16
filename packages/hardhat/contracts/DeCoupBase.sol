@@ -15,7 +15,9 @@ contract DeCoupBase is AccessControlContract {
 
     /// @dev Transfer event as defined in current draft of ERC721. Emitted every time a coupon
     ///  ownership is assigned, including creations.
-    event Transfer(address from, address to, uint256 tokenId);
+    event Transfer(address from, address to, uint256 couponId);
+
+    event Approve(address generator, uint couponId);
 
 
     struct Coupon {

@@ -16,6 +16,6 @@ contract createCoupon is DeCoupBase {
         //Create a new coupon and push it to the coupons array
         uint256 id  = coupons.push(Coupon(couponDesignURL, coupons.length(), msg.sender, sink, couponValidityTime, couponCreationTime, couponType, amountRedeemable, true, false));
         //emit event once the coupon has been created
-        event Mint(msg.sender, id);
+        emit Mint(msg.sender, id);
     }
 }

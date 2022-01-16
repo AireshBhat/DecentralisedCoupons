@@ -15,5 +15,6 @@ contract TransferOwner is CouponHelper{
             coupons[_couponId].isCouponValid = false;
         }
         coupons[_couponId].owner = _targetUser;
+        emit Transfer(msg.sender, _targetUser, _couponId);
     }
 }
