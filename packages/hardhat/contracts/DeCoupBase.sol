@@ -19,6 +19,8 @@ contract DeCoupBase is AccessControlContract {
 
     event Approve(address generator, uint256 couponId);
 
+    event RedeemSuccess(uint256 couponId);
+
     struct Coupon {
         // Coupon design address
         string couponDesignURL;

@@ -53,5 +53,6 @@ contract RedeemCoupon is CouponHelper {
                 coupons[_couponId].amountRedeemable -
                 _amountToBeRedeemed;
         }
+        emit RedeemSuccess(_couponId);
     }
 }
