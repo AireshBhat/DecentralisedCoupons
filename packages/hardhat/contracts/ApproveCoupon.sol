@@ -4,7 +4,7 @@ pragma solidity >=0.8.0 <0.9.0;
 import "./CreateCoupon.sol";
 
 contract ApproveCoupon is CreateCoupon {
-    function approveToken(uint256 _couponId) internal {
+    function approveToken(uint256 _couponId) internal isSink(msg.sender) {
         require(coupons[_couponId].isCouponValid == false);
 
         // check if sender is a valid sink
@@ -14,10 +14,12 @@ contract ApproveCoupon is CreateCoupon {
         require(coupons[_couponId].sink == msg.sender);
 
         // check if the current owner is the generatory; can only be approved when the owner is still the generator
-        require(generators[coupons[_couponId].owner] == true);
+        require(coupons[_couponId].owner == 0x0000000000000000000000000000000000000000);
 
         coupons[_couponId].isCouponValid = true;
-        coupons[_couponId].couponCreationTime = uint64(block.timestamp);
-        emit Approve(coupons[_couponId].owner, _couponId);
+        coupons[_couponId].couponValidtyStartTime = uint64(block.timestamp);
+        emit Approve(coupons[_couponId].owner, msg.sender, _couponId);
     }
+
+    // TODO: Add rejectToken functionality
 }

@@ -11,33 +11,35 @@ contract DeCoupBase is AccessControlContract {
     /*** EVENTS ***/
 
     /// @dev The MintCoupon event is fired whenever a new coupon comes into existence.
-    event Mint(address owner, uint256 couponId);
+    event Mint(address indexed generator, address indexed sink, uint256 couponId);
 
     /// @dev Transfer event as defined in current draft of ERC721. Emitted every time a coupon
     ///  ownership is assigned, including creations.
-    event Transfer(address from, address to, uint256 couponId);
+    event Transfer(address indexed from, address indexed to, uint256 couponId);
 
-    event Approve(address generator, uint256 couponId);
+    /// @dev Approve event which is fired when a sink has approved the coupon sent by the generator.
+    event Approve(address indexed generator, address indexed sink, uint256 couponId);
 
+    /// @dev Event that is fired when the coupon has been successfully redeemed by the consumer.
     event RedeemSuccess(uint256 couponId);
 
     struct Coupon {
         // Coupon design address
         string couponDesignURL;
-        // id of the coupon in Coupons array
+        // current owner of the coupon
         address owner;
         // The creator of the coupon.
         address generator;
         // The approver of the coupon. The address giving the offer.
         address sink;
+        // id of the coupon in Coupons array
+        uint256 id;
         // The minimum timestamp period for which the coupons is valid. Starts from when the coupon
         // is transferred from the generator to the user. i.e. Time from when coupon validity starts to
         // coupon validity + couponeValidtyTime
-        uint256 id;
-        // current owner of the coupon
         uint64 couponValidityTime;
-        // Stores the creation time of the coupon
-        uint64 couponCreationTime;
+        // Stores the start time for the coupon. From when it is valid.
+        uint64 couponValidtyStartTime;
         // Coupon Type
         uint8 couponType;
         // Amount of amount left to be redeemed
