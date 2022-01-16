@@ -5,19 +5,19 @@ import "./DeCoupBase.sol";
 contract CouponHelper is DeCoupBase {
     // add your helper functions here
 
-    modifier isValidCoupon(Coupon memory _coupon) {
-        require(_coupon.isCouponValid);
-        require((_coupons.couponValidityTime + _coupon.couponCreationTime) >= now);
+    modifier isValidCoupon(uint _couponId) {
+        require(coupons[_couponId].isCouponValid);
+        require((coupons[_couponId].couponValidityTime + coupons[_couponId].couponCreationTime) >= now);
         _;
     }
 
-    modifier isApprovedCoupon(Coupon memory _coupon) {
-        require(_coupon.isCouponApproved);
+    modifier isApprovedCoupon(uint _couponId) {
+        require(coupons[_couponId].isCouponApproved);
         _;
     }
 
-    modifier isOwnedBy(Coupon memory _coupon) {
-        require(_coupon.owner = msg.sender);
+    modifier isOwnedBy(uint _couponId) {
+        require(coupons[_couponId].owner = msg.sender);
         _;
     }
 

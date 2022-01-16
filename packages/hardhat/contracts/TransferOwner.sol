@@ -7,17 +7,13 @@ import "./CouponHelper.sol";
 
 contract TransferOwner is CouponHelper{
 
-    function _transferToUser(Coupon memory _coupon, address _targetUser)
+    function _transferToUser(uint _couponId, address _targetUser)
         internal
-        isValidCoupon(_coupon) isApprovedCoupon(_couponId) isOwnedBy(_coupon)
-        returns (Coupon memory)
+        isValidCoupon(_couponId) isApprovedCoupon(_couponId) isOwnedBy(_couponId)
     {
-        Coupon _updatedCoupon = _coupon;
-        if(_coupon.couponValidityTime + _coupon.couponCreationTime < now){
-            _updatedCoupon.isCouponValid = false;
-            return _updatedCoupon;
+        if(coupons[_couponId].couponValidityTime + coupons[_couponId].couponCreationTime < now){
+            coupons[_couponId].isCouponValid = false;
         }
-        _updatedCoupon.owner = _targetUser;
-        return _updatedCoupon;
+        coupons[_couponId].owner = _targetUser;
     }
 }
