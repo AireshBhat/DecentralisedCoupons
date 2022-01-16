@@ -21,6 +21,11 @@ contract AccessControlContract {
     // convenience. The less we use an address, the less likely it is that we somehow compromise the
     // account.
 
+    constructor() {
+        // Set the CEO to the address that created the contract.
+        ceoAddress = msg.sender;
+    }
+
     /// @dev Emited when contract is upgraded
     event ContractUpgrade(address newContract);
 

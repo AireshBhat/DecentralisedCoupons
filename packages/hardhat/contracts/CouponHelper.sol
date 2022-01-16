@@ -41,10 +41,27 @@ contract CouponHelper is DeCoupBase {
         _;
     }
 
-    modifier couponTypeValidity(uint _couponId){
+    modifier couponTypeValidity(uint _couponId) {
         require(
             coupons[_couponId].couponType == 0 ||
             coupons[_couponId].couponType == 1
         );
+        _;
+    }
+
+    function addGenerator(address generator) public onlyCEO {
+        generators[generator] = true;
+    }
+
+    function removeGenerator(address generator) public onlyCEO {
+        generators[generator] = false;
+    }
+
+    function addSetter(address sink) public onlyCEO {
+        sinks[sink] = true;
+    }
+
+    function removeSetter(address sink) public onlyCEO {
+        sinks[sink] = false;
     }
 }
