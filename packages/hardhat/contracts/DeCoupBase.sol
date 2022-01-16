@@ -11,14 +11,23 @@ contract DeCoupBase is AccessControlContract {
     /*** EVENTS ***/
 
     /// @dev The MintCoupon event is fired whenever a new coupon comes into existence.
-    event Mint(address indexed generator, address indexed sink, uint256 couponId);
+    event Mint(
+        address indexed generator,
+        address indexed sink,
+        uint256 couponId
+    );
 
     /// @dev Transfer event as defined in current draft of ERC721. Emitted every time a coupon
     ///  ownership is assigned, including creations.
     event Transfer(address indexed from, address indexed to, uint256 couponId);
 
-    /// @dev Approve event which is fired when a sink has approved the coupon sent by the generator.
-    event Approve(address indexed generator, address indexed sink, uint256 couponId);
+    /// @dev Approve event which is fired when a sink has approved/rejected the coupon sent by the generator.
+    event ApproveResponse(
+        address indexed generator,
+        address indexed sink,
+        uint256 couponId,
+        bool approvalSuccess
+    );
 
     /// @dev Event that is fired when the coupon has been successfully redeemed by the consumer.
     event RedeemSuccess(uint256 couponId);
