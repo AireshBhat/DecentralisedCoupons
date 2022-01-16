@@ -1,24 +1,30 @@
 pragma solidity >=0.8.0 <0.9.0;
+//SPDX-License-Identifier: MIT
 
 import "./DeCoupBase.sol";
 
 contract CouponHelper is DeCoupBase {
     // add your helper functions here
 
-    modifier isValidCoupon(uint _couponId) {
+    modifier isValidCoupon(uint256 _couponId) {
+        // check validity flag
         require(coupons[_couponId].isCouponValid);
-        require((coupons[_couponId].couponValidityTime + coupons[_couponId].couponCreationTime) >= now);
+
+        // check if coupon validity has expired
+        require(
+            (coupons[_couponId].couponValidityTime +
+                coupons[_couponId].couponCreationTime) >= block.timestamp
+        );
         _;
     }
 
-    modifier isApprovedCoupon(uint _couponId) {
+    modifier isApprovedCoupon(uint256 _couponId) {
         require(coupons[_couponId].isCouponApproved);
         _;
     }
 
-    modifier isOwnedBy(uint _couponId) {
-        require(coupons[_couponId].owner = msg.sender);
+    modifier isOwnedBy(uint256 _couponId) {
+        require(coupons[_couponId].owner == msg.sender);
         _;
     }
-
 }

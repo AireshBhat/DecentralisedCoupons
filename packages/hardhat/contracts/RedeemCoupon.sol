@@ -1,4 +1,5 @@
 pragma solidity >=0.8.0 <0.9.0;
+//SPDX-License-Identifier: MIT
 
 import "./DeCoupBase.sol";
 import "./CouponHelper.sol";
@@ -7,9 +8,8 @@ import "./CouponHelper.sol";
 // update the coupon
 // return the updated token back
 contract RedeemCoupon is CouponHelper {
-    function redeemCoupon(uint _couponId, uint8 _amountToBeRedeemed)
+    function redeemCoupon(uint256 _couponId, uint8 _amountToBeRedeemed)
         public
-        view
         isApprovedCoupon(_couponId)
         isValidCoupon(_couponId)
     {
@@ -26,24 +26,32 @@ contract RedeemCoupon is CouponHelper {
     //      ii. if remaining amount is == 0; mark as invalid
     //      iii. if remaining amount is < 0; throw error since the amount
     //              being redeemed is more than remaining amount
-    function _updateToken(uint _couponId, uint8 _amountToBeRedeemed)
+    function _updateToken(uint256 _couponId, uint8 _amountToBeRedeemed)
         private
-        pure
         isApprovedCoupon(_couponId)
         isValidCoupon(_couponId)
     {
-        require(coupons[_couponId].couponType == 0 || coupons[_couponId].couponType == 1);
+        require(
+            coupons[_couponId].couponType == 0 ||
+                coupons[_couponId].couponType == 1
+        );
 
         if (coupons[_couponId].couponType == 0) {
             // percentage type coupon
             coupons[_couponId].isCouponValid = false;
         } else {
             // amount type coupon
-            require(coupons[_couponId].amountRedeemable - _amountToBeRedeemed >= 0);
-            if (coupons[_couponId].amountRedeemable - _amountToBeRedeemed == 0) {
+            require(
+                coupons[_couponId].amountRedeemable - _amountToBeRedeemed >= 0
+            );
+            if (
+                coupons[_couponId].amountRedeemable - _amountToBeRedeemed == 0
+            ) {
                 coupons[_couponId].isCouponValid = false;
             }
-            coupons[_couponId].amountRedeemable = coupons[_couponId].amountRedeemable - _amountToBeRedeemed;
+            coupons[_couponId].amountRedeemable =
+                coupons[_couponId].amountRedeemable -
+                _amountToBeRedeemed;
         }
     }
 }

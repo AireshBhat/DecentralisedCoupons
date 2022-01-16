@@ -2,7 +2,7 @@ pragma solidity >=0.8.0 <0.9.0;
 //SPDX-License-Identifier: MIT
 
 import "hardhat/console.sol";
-// import "@openzeppelin/contracts/access/Ownable.sol"; 
+// import "@openzeppelin/contracts/access/Ownable.sol";
 import "./AccessControlContract.sol";
 
 /// @title Base contract for DeCoup. Holds all common structs, events and base variables.
@@ -17,42 +17,31 @@ contract DeCoupBase is AccessControlContract {
     ///  ownership is assigned, including creations.
     event Transfer(address from, address to, uint256 couponId);
 
-    event Approve(address generator, uint couponId);
-
+    event Approve(address generator, uint256 couponId);
 
     struct Coupon {
         // Coupon design address
         string couponDesignURL;
-
         // id of the coupon in Coupons array
-        uint id;
-
+        uint256 id;
         // current owner of the coupon
         address owner;
-
         // The creator of the coupon.
         address generator;
-
         // The approver of the coupon. The address giving the offer.
         address sink;
-
         // The minimum timestamp period for which the coupons is valid. Starts from when the coupon
         // is transferred from the generator to the user. i.e. Time from when coupon validity starts to
         // coupon validity + couponeValidtyTime
         uint64 couponValidityTime;
-
         // Stores the creation time of the coupon
         uint64 couponCreationTime;
-
         // Coupon Type
         uint8 couponType;
-
         // Amount of amount left to be redeemed
         uint8 amountRedeemable;
-
         // Coupon Status
         bool isCouponValid;
-
         // Has Coupon been approved by sink
         bool isCouponApproved;
     }
@@ -61,8 +50,8 @@ contract DeCoupBase is AccessControlContract {
     Coupon[] coupons;
 
     // Address of valid generators and sinks
-    mapping (address => bool) generators;
-    mapping (address => bool) sinks;
+    mapping(address => bool) generators;
+    mapping(address => bool) sinks;
 
     /*** CONSTANTS ***/
 
@@ -83,5 +72,4 @@ contract DeCoupBase is AccessControlContract {
         uint32(4 days),
         uint32(7 days)
     ];
-
 }
