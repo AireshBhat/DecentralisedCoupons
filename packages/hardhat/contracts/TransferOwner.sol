@@ -8,7 +8,6 @@ import "./ApproveCoupon.sol";
 contract TransferOwner is ApproveCoupon {
     function _transferToUser(uint256 _couponId, address _targetUser)
         internal
-        isValidCoupon(_couponId)
         isApprovedCoupon(_couponId)
         isOwnedBy(_couponId)
     {
@@ -19,6 +18,7 @@ contract TransferOwner is ApproveCoupon {
         ) {
             coupons[_couponId].isCouponValid = false;
         }
+        require(coupons[_couponId].isCouponValid);
         coupons[_couponId].owner = _targetUser;
         emit Transfer(msg.sender, _targetUser, _couponId);
     }
