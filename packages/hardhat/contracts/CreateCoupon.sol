@@ -3,11 +3,11 @@ pragma solidity >=0.8.0 <0.9.0;
 
 import "hardhat/console.sol";
 // import "@openzeppelin/contracts/access/Ownable.sol";
-import "./DeCoupBase.sol";
+import "./CouponHelper.sol";
 
 /// @title Contract to create new Coupons as NFTs.
 /// @author Surya Vamsee
-contract CreateCoupon is DeCoupBase {
+contract CreateCoupon is CouponHelper {
     /// @dev funcion to create a Single coupon for generators
     function createCoupon(
         string memory couponDesignURL,
@@ -18,9 +18,7 @@ contract CreateCoupon is DeCoupBase {
         uint8 amountRedeemable,
         bool isCouponValid,
         bool isCouponApproved
-    ) public {
-        // Only generators can create coupons
-        require(generators[msg.sender]);
+    ) public isSink(sink) isGenerator(msg.sender) {
         //Create a new coupon and push it to the coupons array
         uint256 _couponId = coupons.length;
         coupons.push(

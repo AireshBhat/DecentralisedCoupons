@@ -3,9 +3,9 @@ pragma solidity >=0.8.0 <0.9.0;
 
 /// @title A facet of DeCoup that manages special access privileges.
 /// @author Shekhar Somani
-import "./CouponHelper.sol";
+import "./ApproveCoupon.sol";
 
-contract TransferOwner is CouponHelper {
+contract TransferOwner is ApproveCoupon {
     function _transferToUser(uint256 _couponId, address _targetUser)
         internal
         isValidCoupon(_couponId)

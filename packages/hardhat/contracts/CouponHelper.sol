@@ -27,4 +27,14 @@ contract CouponHelper is DeCoupBase {
         require(coupons[_couponId].owner == msg.sender);
         _;
     }
+
+    modifier isSink(address _address) {
+        require(sinks[_address] == true);
+        _;
+    }
+
+    modifier isGenerator(address _address) {
+        require(generators[_address] == true);
+        _;
+    }
 }
