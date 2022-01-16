@@ -25,8 +25,6 @@ contract DeCoupBase is AccessControlContract {
         // Coupon design address
         string couponDesignURL;
         // id of the coupon in Coupons array
-        uint256 id;
-        // current owner of the coupon
         address owner;
         // The creator of the coupon.
         address generator;
@@ -35,6 +33,8 @@ contract DeCoupBase is AccessControlContract {
         // The minimum timestamp period for which the coupons is valid. Starts from when the coupon
         // is transferred from the generator to the user. i.e. Time from when coupon validity starts to
         // coupon validity + couponeValidtyTime
+        uint256 id;
+        // current owner of the coupon
         uint64 couponValidityTime;
         // Stores the creation time of the coupon
         uint64 couponCreationTime;

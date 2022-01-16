@@ -1,12 +1,12 @@
 pragma solidity >=0.8.0 <0.9.0;
 //SPDX-License-Identifier: MIT
 
-import "./ApproveCoupon.sol";
+import "./TransferOwner.sol";
 
 // check if user is owner of the coupon
 // update the coupon
 // return the updated token back
-contract RedeemCoupon is ApproveCoupon {
+contract RedeemCoupon is TransferOwner {
     function redeemCoupon(uint256 _couponId, uint8 _amountToBeRedeemed)
         public
         isApprovedCoupon(_couponId)
