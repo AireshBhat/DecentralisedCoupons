@@ -6,15 +6,18 @@ import "./DeCoupBase.sol";
 contract CouponHelper is DeCoupBase {
     // add your helper functions here
 
-    modifier isValidCoupon(uint256 _couponId) {
-        // check validity flag
-        require(coupons[_couponId].isCouponValid);
-
+    modifier isCouponExpired(uint256 _couponId) {
         // check if coupon validity has expired
         require(
             (coupons[_couponId].couponValidityTime +
-                coupons[_couponId].couponCreationTime) >= block.timestamp
+                coupons[_couponId].couponValidtyStartTime) >= block.timestamp
         );
+        _;
+    }
+
+    modifier isCouponValid(uint256 _couponId) {
+        // check validity flag
+        require(coupons[_couponId].isCouponValid);
         _;
     }
 

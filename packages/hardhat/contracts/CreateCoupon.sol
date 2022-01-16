@@ -5,6 +5,7 @@ import "hardhat/console.sol";
 // import "@openzeppelin/contracts/access/Ownable.sol";
 import "./CouponHelper.sol";
 
+/// TODO: Check if couponType is valid
 /// @title Contract to create new Coupons as NFTs.
 /// @author Surya Vamsee
 contract CreateCoupon is CouponHelper {
@@ -13,11 +14,8 @@ contract CreateCoupon is CouponHelper {
         string memory couponDesignURL,
         address sink,
         uint64 couponValidityTime,
-        uint64 couponCreationTime,
         uint8 couponType,
-        uint8 amountRedeemable,
-        bool isCouponValid,
-        bool isCouponApproved
+        uint8 amountRedeemable
     ) public isSink(sink) isGenerator(msg.sender) {
         //Create a new coupon and push it to the coupons array
         uint256 _couponId = coupons.length;
@@ -27,16 +25,17 @@ contract CreateCoupon is CouponHelper {
                 0x0000000000000000000000000000000000000000,
                 msg.sender,
                 sink,
-                coupons.length,
+                _couponId,
                 couponValidityTime,
-                couponCreationTime,
+                // Update this value later to something relevant
+                uint64(block.timestamp),
                 couponType,
                 amountRedeemable,
-                isCouponValid,
-                isCouponApproved
+                false,
+                false
             )
         );
         //emit event once the coupon has been created
-        emit Mint(msg.sender, _couponId);
+        emit Mint(msg.sender, sink, _couponId);
     }
 }

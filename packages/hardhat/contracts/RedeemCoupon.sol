@@ -10,26 +10,21 @@ contract RedeemCoupon is TransferOwner {
     function redeemCoupon(uint256 _couponId, uint8 _amountToBeRedeemed)
         public
         isApprovedCoupon(_couponId)
-        isValidCoupon(_couponId)
+        isCouponValid(_couponId)
+        isCouponExpired(_couponId)
     {
         // check if the coupon is owned by the sender
-        require(coupons[_couponId].owner == msg.sender);
-        _updateToken(_couponId, _amountToBeRedeemed);
-    }
+        require(coupons[_couponId].sink == msg.sender);
 
-    // check for coupon type
-    //  1. if coupon is percentage type
-    //      i. set as invalid
-    //  2. if coupon is amount type
-    //      i. reduce amount redemeed from total redeemable
-    //      ii. if remaining amount is == 0; mark as invalid
-    //      iii. if remaining amount is < 0; throw error since the amount
-    //              being redeemed is more than remaining amount
-    function _updateToken(uint256 _couponId, uint8 _amountToBeRedeemed)
-        private
-        isApprovedCoupon(_couponId)
-        isValidCoupon(_couponId)
-    {
+        // check for coupon type
+        //  1. if coupon is percentage type
+        //      i. set as invalid
+        //  2. if coupon is amount type
+        //      i. reduce amount redemeed from total redeemable
+        //      ii. if remaining amount is == 0; mark as invalid
+        //      iii. if remaining amount is < 0; throw error since the amount
+        //              being redeemed is more than remaining amount
+        // TODO: move this to the modifier that is being created
         require(
             coupons[_couponId].couponType == 0 ||
                 coupons[_couponId].couponType == 1
@@ -54,4 +49,5 @@ contract RedeemCoupon is TransferOwner {
         }
         emit RedeemSuccess(_couponId);
     }
+
 }
