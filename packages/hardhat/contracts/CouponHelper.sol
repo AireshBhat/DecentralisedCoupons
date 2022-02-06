@@ -41,10 +41,10 @@ contract CouponHelper is DeCoupBase {
         _;
     }
 
-    modifier couponTypeValidity(uint _couponId) {
+    modifier isCouponTypeValid(uint couponType) {
         require(
-            coupons[_couponId].couponType == 0 ||
-            coupons[_couponId].couponType == 1
+            couponType == 0 ||
+            couponType == 1
         );
         _;
     }

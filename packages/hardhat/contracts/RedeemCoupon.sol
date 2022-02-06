@@ -12,7 +12,7 @@ contract RedeemCoupon is TransferOwner {
         isApprovedCoupon(_couponId)
         isCouponValid(_couponId)
         isCouponExpired(_couponId)
-        couponTypeValidity(_couponId)
+        isCouponTypeValid(coupons[_couponId].couponType)
         {
         // check if the coupon is owned by the sender
         require(coupons[_couponId].sink == msg.sender);
@@ -25,7 +25,6 @@ contract RedeemCoupon is TransferOwner {
         //      ii. if remaining amount is == 0; mark as invalid
         //      iii. if remaining amount is < 0; throw error since the amount
         //              being redeemed is more than remaining amount
-        // TODO: move this to the modifier that is being created
 
         if (coupons[_couponId].couponType == 0) {
             // percentage type coupon

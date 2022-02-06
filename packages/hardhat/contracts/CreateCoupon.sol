@@ -16,7 +16,7 @@ contract CreateCoupon is CouponHelper {
         uint64 couponValidityTime,
         uint8 couponType,
         uint8 amountRedeemable
-    ) public isSink(sink) isGenerator(msg.sender) {
+    ) public isCouponTypeValid(couponType) isSink(sink) isGenerator(msg.sender) {
         //Create a new coupon and push it to the coupons array
         uint256 _couponId = coupons.length;
         coupons.push(

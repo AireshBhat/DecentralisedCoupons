@@ -23,7 +23,7 @@ contract TransferOwner is ApproveCoupon {
             emit Transfer(msg.sender, _targetUser, _couponId);
         }
     }
-    // TODO: Add a function to transfer the coupon from user to user
+    // TODO: Target user should not be generator
     function _transferFromGenerator(uint256 _couponId, address _targetUser)
     internal
     isCouponValid(_couponId)
